@@ -20,7 +20,7 @@ base_indice$benef[base_indice$benef|>is.nan()]=0
 base_indice$prc_at_cmd[base_indice$prc_at_cmd|>is.nan()]=0
 base_indice$prc_at_cmd[base_indice$prc_at_cmd|>is.na()]=0
 #pesos
-municipios=read_sf("../../../../../Reutilizables/Cartografia/municipiosjair.shp")##Geometría de municipios
+municipios=read_sf("../../../../../Reutilizables/Cartografia/municipiosjair.shp")
 pesos=read_excel("output/ponderaciones.xlsx")
 pesos$Rank=(max(pesos$Rank)+1-pesos$Rank)/sum(max(pesos$Rank)+1-pesos$Rank)
 
@@ -197,5 +197,7 @@ mapa <- leaflet() |>
 mapa
 library(htmlwidgets)
 library(leafem)
-saveWidget(mapa, "output/mapas_web/leaflet_indices.html",selfcontained = T)
-
+#saveWidget(mapa, "output/mapas_web/leaflet_indices.html",selfcontained = T)
+#install.packages("htmlwidgets")
+htmlwidgets::saveWidget(widget = mapa, file = "tmp.html", selfcontained = TRUE) 
+file.rename("tmp.html", "output/mapas_web/leaflet_indices.html")
